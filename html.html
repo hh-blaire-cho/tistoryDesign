@@ -38,6 +38,9 @@
 
     </s_if_var_promotion-3-btn-hover-color>
   </style>
+  <!-- 자동 목차 시작 -->
+  <script src="./images/jquery.toc.min.js"></script>
+  <!-- 자동 목차 끝 -->
 </head>
 
 <body id="[##_body_id_##]"
@@ -699,5 +702,14 @@
     </div>
   </s_t3>
   <script src="./images/script.js"></script>
+<!-- 자동 목차 시작 -->
+<script>
+  $(document).ready(function () {
+    var $toc = $("#toc");
+    $toc.toc({ content: ".tt_article_useless_p_margin", headings: "h2, h3, h4" });
+  });
+</script>
+<!-- 자동 목차 끝 -->
+
 </body>
 </html>
