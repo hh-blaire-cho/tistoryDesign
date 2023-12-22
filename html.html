@@ -38,9 +38,12 @@
 
     </s_if_var_promotion-3-btn-hover-color>
   </style>
-  <!-- 자동 목차 시작 -->
-  <script src="./images/jquery.toc.min.js"></script>
-  <!-- 자동 목차 끝 -->
+  <script src="./images/jquery.toc.min.js"></script> <!-- 자동 목차 -->
+  <script src="./images/jquery.toc.min.js"></script> <!-- 본문 & 플로팅 목차 -->
+  <!-- 플로팅 목차 시작 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+  <!-- 플로팅 목차 끝 -->
 </head>
 
 <body id="[##_body_id_##]"
@@ -441,6 +444,7 @@
                 </s_index_article_rep>
 
                 <s_permalink_article_rep>
+                  <div class='toc'></div> <!-- 플로팅 목차-->
                   <div class="post-cover" <s_article_rep_thumbnail>
                     style="background-image:url([##_article_rep_thumbnail_raw_url_##])"</s_article_rep_thumbnail>>
                     <div class="inner">
@@ -702,14 +706,59 @@
     </div>
   </s_t3>
   <script src="./images/script.js"></script>
-<!-- 자동 목차 시작 -->
-<script>
-  $(document).ready(function () {
-    var $toc = $("#toc");
-    $toc.toc({ content: ".tt_article_useless_p_margin", headings: "h2, h3, h4" });
-  });
-</script>
-<!-- 자동 목차 끝 -->
+  <!-- 자동 목차 시작 -->
+  <script>
+    $(document).ready(function () {
+      var $toc = $("#toc");
+      $toc.toc({ content: ".tt_article_useless_p_margin", headings: "h2, h3, h4" });
+    });
+  </script>
+  <!-- 자동 목차 끝 -->
+  <!-- 플로팅 목차 시작 -->
+  <script>
+    var content = document.querySelector(".entry-content");
+    var headings = content.querySelectorAll("h1, h2, h3, h4, h5, h6, h7");
+    var headingMap = {};
 
+    Array.prototype.forEach.call(headings, function (heading) {
+      var id = heading.id
+        ? heading.id
+        : heading.textContent
+            .trim()
+            .toLowerCase()
+            .split(" ")
+            .join("-")
+            .replace(/[\!\@\#\$\%\^\&\*\(\):]/gi, "");
+      headingMap[id] = !isNaN(headingMap[id]) ? ++headingMap[id] : 0;
+      if (headingMap[id]) {
+        heading.id = id + "-" + headingMap[id];
+      } else {
+        heading.id = id;
+      }
+    });
+
+    tocbot.init({
+      tocSelector: ".toc",
+      contentSelector: ".entry-content",
+      headingSelector: "h2, h3, h4",
+      hasInnerContainers: false,
+    });
+
+    $(document).ready(function () {
+      $(".toc").addClass("toc-absolute");
+
+      var toc_top = $(".toc").offset().top - 165;
+      $(window).scroll(function () {
+        if ($(this).scrollTop() >= toc_top) {
+          $(".toc").addClass("toc-fixed");
+          $(".toc").removeClass("toc-absolute");
+        } else {
+          $(".toc").addClass("toc-absolute");
+          $(".toc").removeClass("toc-fixed");
+        }
+      });
+    });
+  </script>
+  <!-- 플로팅 목차 끝 -->
 </body>
 </html>
