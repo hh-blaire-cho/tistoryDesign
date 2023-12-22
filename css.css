@@ -355,9 +355,8 @@ hr {
 }
 
 #container .content-wrap {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 20px;
+	max-width: 1080px;
+	padding: 0px 0px 0px 60px;
 }
 
 #container .content-wrap:before {
@@ -396,10 +395,10 @@ hr {
 }
 
 #aside {
-  float: right;
-  width: 21.296296296296296%;
-  padding: 75px 0 32px;
-  box-sizing: border-box;
+	float: right;
+	width: 250px;
+	padding: 73px 0 32px;
+	box-sizing: border-box;
 }
 
 #aside .close,
@@ -2525,7 +2524,7 @@ hr {
 }
 
 .layout-aside-left #container .content-wrap:before {
-  margin-left: -256px;
+	margin-left: -410px;
 }
 
 .list-type-vertical .post-item {
