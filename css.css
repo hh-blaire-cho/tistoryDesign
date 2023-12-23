@@ -4610,6 +4610,11 @@ hr[data-ke-style='style8'],
   word-break: break-all;
 }
 
+code {
+	tab-size: 2;
+}
+
+
 /* 자동 목차 스타일 시작 */
 .book-toc{
   position:relative;
